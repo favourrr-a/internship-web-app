@@ -30,7 +30,7 @@ html{
 }
 
 .signupForm {
-    width: 500px;
+    width: 450px;
     height: 440px;
     display: flex;
     flex-direction: column; /* Align items vertically */

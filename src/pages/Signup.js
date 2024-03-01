@@ -14,12 +14,25 @@ const Signup = () => {
 
     const handleSignup = () => {
         // Validate the username and password 
-        if (username && (password === password2)) {
-            navigate(`/dashboard/${username}`);
+        if (username && email && fullName && password && password2) {
+            if (password === password2) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+                if (emailRegex.test(email)) {
+                    // Valid email address
+                    // You can proceed with your form submission or other actions
+                    navigate(`/dashboard/${username}`);
+                } else {
+                    alert('Invalid email address');
+                }
+            } else {
+                alert('Passwords do not match');
+            }
         } else {
-            alert('Please enter both username and matching passwords.');
+            alert('Please fill in all the fields');
         }
-    }
+    };
+    
 
     return (
         <div>
@@ -31,7 +44,7 @@ const Signup = () => {
 
                             <div className="type">
                                 <label className="type2">
-                                    Full Name:
+                                    Full Name*: 
                                 </label>
                                 <input className="input" type="text" value={fullName} onChange={(e) => setfullName(e.target.value)} />
 
@@ -43,7 +56,7 @@ const Signup = () => {
                         </div>
                         <div className="type">
                             <label className="type2">
-                                E-mail:
+                                E-mail*:
                             </label>
                             <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
@@ -52,7 +65,7 @@ const Signup = () => {
 
                         <div className="type">
                             <label className="type2">
-                                Username:
+                                Username*:
                             </label>
                             <input className="input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
 
@@ -61,7 +74,7 @@ const Signup = () => {
 
                         <div class="type">
                             <label class="type2">
-                                Password:
+                                Password*:
                             </label>
                             <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
@@ -70,7 +83,7 @@ const Signup = () => {
 
                         <div class="type">
                             <label class="type2">
-                                Comfirm Password:
+                                Comfirm Password*:
                             </label>
                             <input className="input" type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
 
@@ -85,8 +98,8 @@ const Signup = () => {
                 </div>
             </div>
         </div>
-            
-        
+
+
     );
 }
 
