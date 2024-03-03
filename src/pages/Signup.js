@@ -17,7 +17,7 @@ const Signup = () => {
         if (username && email && fullName && password && password2) {
             if (password === password2) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
                 if (emailRegex.test(email)) {
                     // Valid email address
                     // You can proceed with your form submission or other actions
@@ -32,19 +32,19 @@ const Signup = () => {
             alert('Please fill in all the fields');
         }
     };
-    
+
 
     return (
         <div>
             <div className="signupFormContainer">
                 <div className="signupForm">
-                    <div className='signup-content'>
+                    <form className='signup-content'>
                         <h2 className="signupFormTitle">Signup</h2>
                         <div className='input-container'>
 
                             <div className="type">
                                 <label className="type2">
-                                    Full Name*: 
+                                    Full Name*:
                                 </label>
                                 <input className="input" type="text" value={fullName} onChange={(e) => setfullName(e.target.value)} />
 
@@ -72,8 +72,8 @@ const Signup = () => {
 
                         </div>
 
-                        <div class="type">
-                            <label class="type2">
+                        <div className="type">
+                            <label className="type2">
                                 Password*:
                             </label>
                             <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -81,23 +81,24 @@ const Signup = () => {
 
                         </div>
 
-                        <div class="type">
-                            <label class="type2">
+                        <div className="type">
+                            <label className="type2">
                                 Comfirm Password*:
                             </label>
                             <input className="input" type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
 
 
                         </div>
-                    </div>
-                    <div className="signupButtonContainer">
-                        <button className="signupButton" onClick={handleSignup}>Sign Up</button>
-                        <Link to="/login" className='linktologin'>Already have an account? Login</Link>
 
-                    </div>
+                        <div className="signupButtonContainer">
+                            <button className="signupButton" onClick={handleSignup}>Sign Up</button>
+                            <Link to="/login" className='linktologin'>Already have an account? Login</Link>
                 </div>
+                    
+                    </form>
             </div>
         </div>
+        </div >
 
 
     );
