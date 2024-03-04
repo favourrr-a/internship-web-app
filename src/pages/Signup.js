@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { showSuccessAlert, showErrorAlert, showToast } from "../components/Alert";
+
 import '../styles/signup.css'
 
 const Signup = () => {
@@ -12,16 +15,17 @@ const Signup = () => {
     const [fullName, setfullName] = useState('');
     const [email, setEmail] = useState('');
 
-    const handleSignup = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const handleSignup = (formInput) => {
         // Validate the username and password 
         if (username && email && fullName && password && password2) {
             if (password === password2) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                if (emailRegex.test(email)) {
-                    // Valid email address
-                    // You can proceed with your form submission or other actions
-                    navigate(`/dashboard/${username}`);
+                if (emailRegex.test(formInput.email)) {
+                    showToast("success", "You have successfully signed up")
+                    navigate(`/dashboard/${formInput.username}`);
                 } else {
                     alert('Invalid email address');
                 }
@@ -29,7 +33,7 @@ const Signup = () => {
                 alert('Passwords do not match');
             }
         } else {
-            alert('Please fill in all the fields');
+            showErrorAlert("Sign-up error", "Please fill all the required fields");
         }
     };
 
@@ -38,7 +42,7 @@ const Signup = () => {
         <div>
             <div className="signupFormContainer">
                 <div className="signupForm">
-                    <form className='signup-content'>
+                    <form className='signup-content' onSubmit={handleSubmit(handleSignup)}>
                         <h2 className="signupFormTitle">Signup</h2>
                         <div className='input-container'>
 
@@ -46,58 +50,77 @@ const Signup = () => {
                                 <label className="type2">
                                     Full Name*:
                                 </label>
-                                <input className="input" type="text" value={fullName} onChange={(e) => setfullName(e.target.value)} />
-
-
+                                <input className="input" type="text"
+                                    {...register('fullName', { required: "Please enter your fullNames" })}
+                                />
+                                {errors.fullName &&
+                                    <div>
+                                        <label className="invalid">{errors.fullName.message}</label>
+                                    </div>}
                             </div>
 
 
 
-                        </div>
-                        <div className="type">
-                            <label className="type2">
-                                E-mail*:
-                            </label>
-                            <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <div className="type">
+                                <label className="type2">
+                                    E-mail*:
+                                </label>
+                                <input className="input" type="email"
+                                    {...register('email', { required: "Please enter the email" })} />
+                                {errors.email &&
+                                    <div>
+                                        <label className="invalid">{errors.email.message}</label>
+                                    </div>}
+                            </div>
+
+                            <div className="type">
+                                <label className="type2">
+                                    Username*:
+                                </label>
+                                <input className="input" type="text"
+                                    {...register('username', { required: "Please enter the username" })} />
+                                {errors.username &&
+                                    <div>
+                                        <label className="invalid">{errors.username.message}</label>
+                                    </div>}
 
 
-                        </div>
+                            </div>
 
-                        <div className="type">
-                            <label className="type2">
-                                Username*:
-                            </label>
-                            <input className="input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-
-
-                        </div>
-
-                        <div className="type">
-                            <label className="type2">
-                                Password*:
-                            </label>
-                            <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <div className="type">
+                                <label className="type2">
+                                    Password*:
+                                </label>
+                                <input className="input" type="password"
+                                    {...register('password', { required: "Please enter the username" })} />
+                                {errors.password && <div className='invalid-container'>
+                                    <label className="invalid-container">{errors.password.message}</label>
+                                    </div>}
 
 
-                        </div>
+                            </div>
 
-                        <div className="type">
-                            <label className="type2">
-                                Comfirm Password*:
-                            </label>
-                            <input className="input" type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
-
-
+                            <div className="type">
+                                <label className="type2">
+                                    Comfirm Password*:
+                                </label>
+                                <input className="input" type="password"
+                                    {...register('password2', { required: "Please enter the username" })} />
+                                {errors.password2 &&
+                                    <div className='invalid-container'>
+                                        <label className="invalid">{errors.password2.message}</label>
+                                    </div>}
+                            </div>
                         </div>
 
                         <div className="signupButtonContainer">
-                            <button className="signupButton" onClick={handleSignup}>Sign Up</button>
+                            <button className="signupButton">Sign Up</button>
                             <Link to="/login" className='linktologin'>Already have an account? Login</Link>
-                </div>
-                    
+                        </div>
+
                     </form>
+                </div>
             </div>
-        </div>
         </div >
 
 

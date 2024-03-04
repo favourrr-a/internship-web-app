@@ -31,17 +31,17 @@ html{
   
   .loginFormContainer {
     width: 100%;
-    height: 100vh; /* Use viewport height for full height */
+    height: 100vh; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .loginForm {
-    width: 320px;
-    height: 270px;
+    width: 350px;
+    height: 290px;
     display: flex;
-    flex-direction: column; /* Align items vertically */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     border-radius: 10%;
@@ -61,14 +61,19 @@ html{
 
 .input-container {
     display: flex;
-    flex-direction: column; /* Align items vertically */
-
+    flex-direction: column; 
     width: 100%;
     margin-top: 0px;
 }
 
 .input-label {
-    margin: 5px 0; /* Add some space between input fields */
+    /* width: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; */
+
+    margin: 5px 0; 
 }
 
 .login-input {
@@ -99,7 +104,18 @@ html{
     background-color: #5FAD56;
     border: none;
     width: 70px;
-    height: 25px; /* Adjust height for better visibility */
+    height: 25px; 
+    margin: 10px;
+
+    color: black;
+    border-radius: 5px;
+}
+
+.loginButton2 {
+    background-color: #5FAD56;
+    border: none;
+    width: 70px;
+    height: 25px; 
     margin: 10px;
 
     color: black;
@@ -113,6 +129,18 @@ html{
     background-color: #F2C14E;
 }
 
-.linktologin:hover{
-    color:black;
+.loginButton2:hover{
+    color: black;
+    font-size: small;
+    margin-left: 5px;
+    background-color: #F2C14E;
+}
+
+
+.invalid{
+    color: rgba(255, 0, 0, 0.365);
+    font-size: x-small;
+    font-style: italic;
+    width: 50%;
+
 }

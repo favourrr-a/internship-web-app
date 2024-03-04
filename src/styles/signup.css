@@ -120,3 +120,9 @@ code {
 .linktologin:hover {
     color: white;
 }
+
+.invalid{
+    color: #F2C14E;
+    font-size: x-small;
+    font-style: italic;
+}
