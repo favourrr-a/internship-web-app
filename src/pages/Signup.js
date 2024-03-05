@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { showSuccessAlert, showErrorAlert, showToast } from "../components/Alert";
+import { showAlert, showToast } from "../components/Alert";
 
 import '../styles/signup.css'
 
@@ -19,8 +19,8 @@ const Signup = () => {
 
     const handleSignup = (formInput) => {
         // Validate the username and password 
-        if (username && email && fullName && password && password2) {
-            if (password === password2) {
+        if (formInput.username && formInput.email && formInput.fullName && formInput.password && formInput.password2) {
+            if (formInput.password === formInput.password2) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                 if (emailRegex.test(formInput.email)) {
@@ -33,7 +33,7 @@ const Signup = () => {
                 alert('Passwords do not match');
             }
         } else {
-            showErrorAlert("Sign-up error", "Please fill all the required fields");
+            showAlert("Error", "Sign-up error", "Please fill all the required fields");
         }
     };
 
@@ -51,10 +51,10 @@ const Signup = () => {
                                     Full Name*:
                                 </label>
                                 <input className="input" type="text"
-                                    {...register('fullName', { required: "Please enter your fullNames" })}
+                                    {...register('fullName', { required: "Please enter your full name" })}
                                 />
                                 {errors.fullName &&
-                                    <div>
+                                    <div className='invalid-container'>
                                         <label className="invalid">{errors.fullName.message}</label>
                                     </div>}
                             </div>
@@ -66,9 +66,9 @@ const Signup = () => {
                                     E-mail*:
                                 </label>
                                 <input className="input" type="email"
-                                    {...register('email', { required: "Please enter the email" })} />
+                                    {...register('email', { required: "Please enter your email" })} />
                                 {errors.email &&
-                                    <div>
+                                    <div className='invalid-container'>
                                         <label className="invalid">{errors.email.message}</label>
                                     </div>}
                             </div>
@@ -78,9 +78,9 @@ const Signup = () => {
                                     Username*:
                                 </label>
                                 <input className="input" type="text"
-                                    {...register('username', { required: "Please enter the username" })} />
+                                    {...register('username', { required: "Please enter your username" })} />
                                 {errors.username &&
-                                    <div>
+                                    <div className='invalid-container'>
                                         <label className="invalid">{errors.username.message}</label>
                                     </div>}
 
@@ -92,9 +92,10 @@ const Signup = () => {
                                     Password*:
                                 </label>
                                 <input className="input" type="password"
-                                    {...register('password', { required: "Please enter the username" })} />
-                                {errors.password && <div className='invalid-container'>
-                                    <label className="invalid-container">{errors.password.message}</label>
+                                    {...register('password', { required: "Please enter your password" })} />
+                                {errors.password &&
+                                    <div className='invalid-container'>
+                                        <label className="invalid">{errors.password.message}</label>
                                     </div>}
 
 
@@ -105,7 +106,7 @@ const Signup = () => {
                                     Comfirm Password*:
                                 </label>
                                 <input className="input" type="password"
-                                    {...register('password2', { required: "Please enter the username" })} />
+                                    {...register('password2', { required: "Please repeat your password" })} />
                                 {errors.password2 &&
                                     <div className='invalid-container'>
                                         <label className="invalid">{errors.password2.message}</label>

@@ -48,7 +48,13 @@ html{
     background-color: rgb(216, 113, 131);
 }
 
+.loginForm-signupButton{
+    position: relative;
+    height: 195px;
+}
 .login-content{
+    height: 195px;
+    position: relative;
 
 }
 
@@ -67,13 +73,8 @@ html{
 }
 
 .input-label {
-    /* width: 100%;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center; */
-
-    margin: 5px 0; 
+    height: 65px; 
+    margin-top: 2px;;
 }
 
 .login-input {
@@ -94,21 +95,20 @@ html{
 
 
 
-.login-signup {
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-}
-
 .loginButton1 {
     background-color: #5FAD56;
     border: none;
     width: 70px;
     height: 25px; 
-    margin: 10px;
-
     color: black;
     border-radius: 5px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0px;
+    left: 45px;
+    text-align: center;
+    margin: 2px;
+
 }
 
 .loginButton2 {
@@ -116,24 +116,43 @@ html{
     border: none;
     width: 70px;
     height: 25px; 
-    margin: 10px;
-
     color: black;
     border-radius: 5px;
+    position: absolute;
+    bottom: 0px;
+    right: 45px;
+    text-align: center;
+    margin: 2px;
 }
 
 .loginButton1:hover{
-    color: black;
-    font-size: small;
-    margin-left: 5px;
     background-color: #F2C14E;
+    border: none;
+    width: 70px;
+    height: 25px; 
+    color: black;
+    border-radius: 5px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0px;
+    left: 45px;
+    text-align: center;
+    margin: 2px;
 }
 
 .loginButton2:hover{
-    color: black;
-    font-size: small;
-    margin-left: 5px;
     background-color: #F2C14E;
+    border: none;
+    width: 70px;
+    height: 25px; 
+    color: black;
+    border-radius: 5px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0px;
+    right: 45px;
+    text-align: center;
+    margin: 2px;
 }
 
 
@@ -141,6 +160,8 @@ html{
     color: rgba(255, 0, 0, 0.365);
     font-size: x-small;
     font-style: italic;
-    width: 50%;
-
+}
+.invalid-container{
+    line-height: 9px;
+    padding: 0px;
 }

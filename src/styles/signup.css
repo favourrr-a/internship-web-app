@@ -71,6 +71,7 @@ code {
 .type {
     margin: 5px 0;
     /* Add some space between input fields */
+    height: 55px;
 }
 
 .input {
@@ -125,4 +126,9 @@ code {
     color: #F2C14E;
     font-size: x-small;
     font-style: italic;
+}
+
+.invalid-container{
+    line-height: 9px;
+    padding: 0px;
 }
