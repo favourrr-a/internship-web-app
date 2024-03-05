@@ -1,22 +1,5 @@
 import Swal from 'sweetalert2';
 
-const showErrorAlert = (title, text) => {
-    Swal.fire({
-        icon: "error",
-        title,
-        text,
-      });
-}
-
-
-const showSuccessAlert = (title, text) => {
-    Swal.fire({
-      icon: "success",
-      title,
-      text,
-    })
-}
-
 
 const showAlert = (icon, title, text) => {
     Swal.fire({
@@ -51,5 +34,5 @@ const showToast = (icon, title) => {
 
 
 export {
-    showErrorAlert, showSuccessAlert, showToast
+    showAlert, showToast
 };
