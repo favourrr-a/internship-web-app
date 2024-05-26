@@ -21,6 +21,7 @@ const Login = () => {
             username: formInput.username,
             password: formInput.password});
             showToast("success", "Logged in successfully");
+            navigate(`/dashboard/${formInput.username}`);
         }
         catch(error){
             if (error.response) {
