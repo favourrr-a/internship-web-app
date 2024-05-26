@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { showAlert, showToast } from "../components/Alert";
+import axios from 'axios';
 
 import '../styles/signup.css'
 
@@ -14,27 +15,66 @@ const Signup = () => {
     const [password2, setPassword2] = useState('');
     const [fullName, setfullName] = useState('');
     const [email, setEmail] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleSignup = (formInput) => {
+    const handleSignup = async (formInput) => {
         // Validate the username and password 
-        if (formInput.username && formInput.email && formInput.fullName && formInput.password && formInput.password2) {
-            if (formInput.password === formInput.password2) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                if (emailRegex.test(formInput.email)) {
-                    showToast("success", "You have successfully signed up")
-                    navigate(`/dashboard/${formInput.username}`);
-                } else {
-                    alert('Invalid email address');
-                }
-            } else {
-                alert('Passwords do not match');
-            }
-        } else {
-            showAlert("Error", "Sign-up error", "Please fill all the required fields");
+        try{
+            const response = await axios.post('http://localhost:3001/signup',{
+            username:  formInput.username,
+            fullName: formInput.fullName,
+            password: formInput.password,
+            password2: formInput.password2,
+            email: formInput.email})
+            showToast("success", "You have successfully signed up");
+            navigate(`/dashboard/${formInput.username}`);
         }
+        catch(error){
+            if(error.response){
+                const errorCode = error.response.data.responseCode;
+                switch (errorCode) {
+                    case '100':
+                        setErrorMessage('Fill all fields');
+                        showAlert("error", "Signup error", "Please fill in all the fields");
+                        break;
+                    case '303':
+                        setErrorMessage('Passwords do not match');
+                        showAlert("error", "Signup error", "Passwords do not match");
+                        break;
+                    case '300':
+                        setErrorMessage('Already existing user');
+                        showAlert("error", "Signup error", "User already exists in the database");
+                        break;
+                    default:
+                        setErrorMessage('An error occurred');
+                        showAlert("error", "Signup error", "An error occurred");
+                        break;
+                }
+            }
+            else{
+                setErrorMessage('something went wrong');
+                showAlert("error", "Signup error", "An error occured");
+                console.error(error);
+            }
+        }
+        // if ( ) {
+        //     if (formInput.password === formInput.password2) {
+        //         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        //         if (emailRegex.test(formInput.email)) {
+                    
+        //             
+        //         } else {
+        //             alert('Invalid email address');
+        //         }
+        //     } else {
+        //         alert('Passwords do not match');
+        //     }
+        // } else {
+        //     showAlert("Error", "Sign-up error", "Please fill all the required fields");
+        // }
     };
 
 
