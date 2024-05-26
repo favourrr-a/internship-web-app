@@ -2,22 +2,52 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { showAlert, showToast } from "../components/Alert";
-
+import axios from 'axios';
 import '../styles/login.css'
 
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleLogin = (formInput) => {
+    const handleLogin = async (formInput) => {
         // Validate the username and password 
-        if (formInput.username && formInput.password) {
+        try{
+            const response = await axios.post('http://localhost:3001/login',{ 
+            username: formInput.username,
+            password: formInput.password});
             showToast("success", "Logged in successfully");
-            navigate(`/dashboard/${formInput.username}`);
-        } else {
-            showAlert("Error", "Login error", "Please enter the required fields")
+        }
+        catch(error){
+            if (error.response) {
+                const errorCode = error.response.data.responseCode;
+                switch (errorCode) {
+                    case '100':
+                        setErrorMessage('Please enter both username and password');
+                        showAlert("Error", "Login error", "Please enter both username and password");
+                        break;
+                    case '303':
+                        setErrorMessage('Incorrect password');
+                        showAlert("Error", "Login error", "Incorrect password");
+                        break;
+                    case '300':
+                        setErrorMessage('User details not found');
+                        showAlert("Error", "Login error", "User details not found");
+                        break;
+                    default:
+                        setErrorMessage('An error occurred');
+                        showAlert("Error", "Login error", "An error occurred");
+                        break;
+                }
+            }
+            else{
+                setErrorMessage('something went wrong');
+                showAlert("Error", "Login error", "Please enter the required fields");
+            }
         }
     }
 
