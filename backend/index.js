@@ -66,17 +66,17 @@ app.post('/signup', async(req, res) => {
             if(password == password2){
                 const newUser = new User({username, fullName, password: bcrypt.hashSync(password, 8), email});
                 await newUser.save();
-                res.status(201).json({responseCode: '102', responseMessage: 'User created successfully'});
+                res.status(200).json({responseCode: '200', responseMessage: 'User created successfully'});
             }
             else{
-                res.status(400).json({responseCode: '107', responseMessage: 'Passwords do not match'})
+                res.status(400).json({responseCode: '303', responseMessage: 'Passwords do not match'})
             }
         }
         else{
-            res.status(409).json({responseCode: '105', responseMessage: 'User already exists in the database'})
+            res.status(409).json({responseCode: '300', responseMessage: 'User already exists in the database'})
         }
     }
     catch(error){
-        res.status(500).json({responseCode: '103', responseMessage: 'fatal error'})
+        res.status(500).json({responseCode: '101', responseMessage: 'fatal error'})
     }
 })
