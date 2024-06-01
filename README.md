@@ -8,7 +8,7 @@
 - If a user exists in the database, they can login
 - Trying to signup with user details that already exist in the database throws an error
 - Logging in with user details that don't exist in the database throws an error
-- Pretty much anything an actual login and signup system do
+- Pretty much anything an actual login and signup system does
 
 ### Upcoming features
 - Deployment
